@@ -1,7 +1,10 @@
 object Day2 {
-    sealed interface Command { val amount: Int }
-    data class Forward(override val amount: Int): Command
-    data class ChangeAim(override val amount: Int): Command
+    sealed interface Command {
+        val amount: Int
+    }
+
+    data class Forward(override val amount: Int) : Command
+    data class ChangeAim(override val amount: Int) : Command
 
     data class Position(
         val horizontal: Int = 0,
@@ -13,7 +16,6 @@ object Day2 {
                 is Forward -> this.copy(horizontal + cmd.amount, depth + cmd.amount * aim)
                 is ChangeAim -> this.copy(aim = aim + cmd.amount)
             }
-
     }
 
     fun part1(lines: Sequence<String>): Int {
