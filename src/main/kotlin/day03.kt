@@ -1,12 +1,10 @@
 object Day3 {
 
     private fun mostCommon(lines: List<String>, pos: Int) =
-        lines.count().let { count ->
-            if (2 * lines.count { it[pos] == '1' } >= count) '1' else '0'
-        }
+        if (2 * lines.count { it[pos] == '1' } >= lines.size) '1' else '0'
 
     private fun gamma(lines: List<String>): String =
-        (0 until lines[0].length).map { pos ->
+        lines[0].indices.map { pos ->
             mostCommon(lines, pos)
         }.joinToString(separator = "")
 
