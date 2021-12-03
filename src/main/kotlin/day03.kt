@@ -17,12 +17,18 @@ object Day3 {
         return gamma * epsilon
     }
 
+    private fun Char.invert() = when (this) {
+        '1' -> '0'
+        '0' -> '1'
+        else -> error("Invalid char")
+    }
+
     private fun bitSearch(lines: List<String>, searchMostCommon: Boolean, pos: Int): String {
         if (lines.size == 1) return lines[0]
 
         val filterChar = when (searchMostCommon) {
             true -> mostCommon(lines, pos)
-            false -> if (mostCommon(lines, pos) == '1') '0' else '1'
+            false -> mostCommon(lines, pos).invert()
         }
 
         return bitSearch(lines.filter { it[pos] == filterChar }, searchMostCommon, pos + 1)
@@ -31,9 +37,7 @@ object Day3 {
     private fun oxygenRating(lines: List<String>) = bitSearch(lines, true, 0).binaryToInt()
     private fun co2Rating(lines: List<String>) = bitSearch(lines, false, 0).binaryToInt()
 
-    fun part2(lines: List<String>): Int {
-        return oxygenRating(lines) * co2Rating(lines)
-    }
+    fun part2(lines: List<String>) = oxygenRating(lines) * co2Rating(lines)
 }
 
 fun main() {
