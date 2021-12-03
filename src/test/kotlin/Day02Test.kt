@@ -10,7 +10,7 @@ class Day02Test : FunSpec(
 
         test("test input") {
             val sample = loadAsText("/day02/input.txt")
-            Day2.part1(sample.lineSequence()) shouldBe 150
+            Day2.part1(sample.lineSequence()) shouldBe 1856459736
         }
     }
 )
