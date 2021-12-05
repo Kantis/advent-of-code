@@ -14,6 +14,7 @@ tasks.named<Wrapper>("wrapper") {
 
 dependencies {
     implementation(Ktor.client.cio)
+    implementation("org.jetbrains.bio:viktor:_")
     testImplementation(Testing.kotest.runner.junit5)
     testImplementation(Testing.kotest.property)
 }
