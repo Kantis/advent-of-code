@@ -1,5 +1,3 @@
-import Day4.mark
-
 typealias Board = Array<Array<Slot>>
 
 data class Slot(
@@ -55,8 +53,25 @@ object Day4 {
         error("No winner after drawing all numbers")
     }
 
-    fun part2(lines: Sequence<String>): Int {
-        return 2
+    fun part2(lines: String): Int {
+        val split = lines.split("\n\n").toList()
+        val drawOrder = split[0].split(",").map { it.toInt() }
+        val boards = split.drop(1)
+            .map(::toBoard)
+            .toMutableList()
+
+        for (i in drawOrder) {
+            boards.forEach { it.mark(i) }
+            if (boards.count() > 1) {
+                boards.removeAll { it.isWinner() }
+            } else if (boards[0].isWinner()) {
+                println("Winner at $i")
+                val unmarkedNumbers = boards[0].sumOf { row -> row.sumOf { if (it.marked) 0 else it.number } }
+                return unmarkedNumbers * i
+            }
+        }
+
+        error("No winner after drawing all numbers")
     }
 }
 
