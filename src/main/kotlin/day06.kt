@@ -1,6 +1,8 @@
+typealias FishBuckets = Map<Int, Long>
+
 object Day6 {
 
-    fun Map<Int, Long>.step() =
+    fun FishBuckets.step() =
         mapOf(
             0 to (this[1] ?: 0),
             1 to (this[2] ?: 0),
@@ -13,18 +15,17 @@ object Day6 {
             8 to (this[0] ?: 0)
         )
 
-    fun part1(lines: String): Long {
-        var state = lines.split(",").groupBy { it.toInt() }.mapValues { (key, values) -> values.count().toLong() }
-        repeat(256) {
-            state = state.step()
-        }
+    fun parseInitialState(fishes: String) =
+        fishes.split(",").groupBy { it.toInt() }.mapValues { (key, values) -> values.count().toLong() }
 
+    fun FishBuckets.iterateAndSum(days: Int): Long {
+        var state = this
+        repeat(days) { state = state.step() }
         return state.map { (_, count) -> count }.sum()
     }
 
-    fun part2(lines: Sequence<String>): Int {
-        return 2
-    }
+    fun part1(lines: String): Long = parseInitialState(lines).iterateAndSum(80)
+    fun part2(lines: String): Long = parseInitialState(lines).iterateAndSum(256)
 }
 
 fun main() {
