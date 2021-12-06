@@ -3,6 +3,11 @@ import io.kotest.matchers.shouldBe
 
 class Day05Test : FunSpec(
     {
+
+        test("hej") {
+            (1..1).zip(1..5).forEach { println(it) }
+        }
+
         test("sample") {
             val sample = loadAsText("/day05/sample.txt")
             Day5.part1(sample.lineSequence()) shouldBe 5
