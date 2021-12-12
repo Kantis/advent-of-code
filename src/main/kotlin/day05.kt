@@ -2,7 +2,6 @@
 
 object Day5 {
     data class Point(val x: Int, val y: Int)
-
     fun smartRange(p1: Int, p2: Int): IntProgression = if (p1 < p2) p1..p2 else p1 downTo p2
     data class Line(val p1: Point, val p2: Point) {
         fun isHorizontal() = p1.y == p2.y
