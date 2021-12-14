@@ -16,11 +16,7 @@ tasks.named<Wrapper>("wrapper") {
 
 kotlin {
     sourceSets {
-        val commonMain by sourceSets.getting {
-            dependencies {
-                implementation(Ktor.client.cio)
-            }
-        }
+        val commonMain by sourceSets.getting
 
         val commonTest by sourceSets.getting {
             dependencies {
@@ -42,6 +38,16 @@ kotlin {
     }
 }
 
+val jvmJar by tasks.existing
+val jvmRuntimeClasspath by configurations.existing
+
+tasks.register<JavaExec>("jvmRun") {
+    description = "Runs this project as a JVM application"
+    classpath(jvmJar, jvmRuntimeClasspath)
+    mainClass.set("day12.Day12Kt")
+    standardInput = System.`in`
+    args = listOf("2")
+}
 
 allprojects {
     repositories {

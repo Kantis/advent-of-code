@@ -1,8 +1,6 @@
 package day12
 
-import io.ktor.http.ContentDisposition.Companion.File
 import memoize
-import readAllText
 import kotlin.jvm.JvmInline
 
 sealed interface Cave {
@@ -113,9 +111,12 @@ fun readAllInput() =
     }
 
 fun main(args: Array<String>) {
+    val part = args[0].toInt()
     val input = readAllInput()
-    println("-----start-------")
-    input.lines().forEach { println(it) }
-    println("-------end-------")
-    println(Day12.part2(input))
+
+    when (part) {
+        1 -> println(Day12.part1(input))
+        2 -> println(Day12.part2(input))
+        else -> error("first argument should be part nr. [1, 2]")
+    }
 }
