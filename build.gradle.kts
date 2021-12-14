@@ -31,7 +31,7 @@ kotlin {
     }
 
     jvm()
-    macosX64("objc") {
+    macosArm64("objc") {
         binaries {
             executable(buildTypes = setOf(RELEASE)) {
                 debuggable = false
