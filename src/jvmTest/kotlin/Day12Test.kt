@@ -1,3 +1,4 @@
+import day12.Day12
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
