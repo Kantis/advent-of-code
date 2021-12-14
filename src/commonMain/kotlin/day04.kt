@@ -74,6 +74,3 @@ object Day4 {
         error("No winner after drawing all numbers")
     }
 }
-
-fun main() {
-}

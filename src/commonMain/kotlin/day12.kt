@@ -1,3 +1,10 @@
+package day12
+
+import io.ktor.http.ContentDisposition.Companion.File
+import memoize
+import readAllText
+import kotlin.jvm.JvmInline
+
 sealed interface Cave {
     val name: String
 }
@@ -19,7 +26,8 @@ data class Graph(
     val edges: Set<Edge>,
 ) {
     fun start() = nodes.single { it.name == "start" }
-    fun end() = nodes.single { it.name == "end" }
+    val end = memoize<Cave> { nodes.single { it.name == "end" } }
+    val lookup = nodes.associateWith { cave -> edges.filter { it.touches(cave) } }
 }
 
 @JvmInline
@@ -40,24 +48,22 @@ object Day12 {
 
     fun Graph.paths(
         start: Cave,
-        end: Cave,
+        target: Cave,
         visitedSmallCaves: Set<Cave> = emptySet(),
         anySmallCaveVisitedTwice: Boolean = false,
         firstIteration: Boolean = true
     ): Set<Path> {
-        if (start == end) return setOf(Path())
+        if (start == target) return setOf(Path())
 
-        // TODO: Prevent visiting end/start twice
-        return edges
-            .filter { it.touches(end) }
-            .filter { if (anySmallCaveVisitedTwice) it.other(end) !in visitedSmallCaves else true }
+        return lookup[target]!!
+            .filter { if (anySmallCaveVisitedTwice) it.other(target) !in visitedSmallCaves else true }
             .filter { if (!firstIteration) !it.touches(end()) else true }
             .flatMap { edge ->
                 edge * paths(
                     start,
-                    edge.other(end),
-                    visitedSmallCaves + if (end is SmallCave) setOf(end) else emptySet(),
-                    if (anySmallCaveVisitedTwice) true else edge.other(end) in visitedSmallCaves,
+                    edge.other(target),
+                    visitedSmallCaves + if (target is SmallCave) setOf(target) else emptySet(),
+                    if (anySmallCaveVisitedTwice) true else edge.other(target) in visitedSmallCaves,
                     false
                 )
             }.toSet()
@@ -67,7 +73,9 @@ object Day12 {
         val nodes = mutableSetOf<Cave>()
         val edges = mutableSetOf<Edge>()
 
-        input.lines().map { it.split("-") }
+        input.lines()
+            .filter { it.isNotBlank() }
+            .map { it.split("-") }
             .forEach { (start, end) ->
                 nodes.add(cave(start))
                 nodes.add(cave(end))
@@ -92,6 +100,22 @@ object Day12 {
             graph.start(),
             graph.end(),
             anySmallCaveVisitedTwice = false
-        ).onEach { println(it) }.size
+        ).size
     }
+}
+
+fun readAllInput() =
+    buildString {
+        do {
+            val x = readlnOrNull()
+            if (x != null) appendLine(x)
+        } while (x != null)
+    }
+
+fun main(args: Array<String>) {
+    val input = readAllInput()
+    println("-----start-------")
+    input.lines().forEach { println(it) }
+    println("-------end-------")
+    println(Day12.part2(input))
 }

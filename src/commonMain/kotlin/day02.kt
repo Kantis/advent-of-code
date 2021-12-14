@@ -38,6 +38,3 @@ object Day2 {
     }
 }
 
-fun main() {
-    Day2.part1(generateSequence(::readLine))
-}

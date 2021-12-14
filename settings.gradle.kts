@@ -1,7 +1,10 @@
 import de.fayard.refreshVersions.core.StabilityLevel
 
 pluginManagement {
-    repositories { gradlePluginPortal() }
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
 }
 
 plugins {

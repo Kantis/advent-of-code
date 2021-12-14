@@ -44,7 +44,3 @@ object Day8 {
             .map { (cipher, tokens) -> tokens.map { cipher[it.toSet()]!! }.joinToString(separator = "").toInt() }
             .sum()
 }
-
-fun main() {
-    Day8.part1(generateSequence(::readLine))
-}

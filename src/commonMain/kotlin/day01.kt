@@ -11,6 +11,3 @@ object Day1 {
             .count { it.slice(1..3).sum() > it.slice(0..2).sum() }
 }
 
-fun main() {
-    Day1.part1(generateSequence(::readLine))
-}

@@ -38,6 +38,3 @@ object Day3 {
     fun part2(lines: List<String>) = oxygenRating(lines) * co2Rating(lines)
 }
 
-fun main() {
-    Day3.part1(generateSequence(::readLine).toList())
-}

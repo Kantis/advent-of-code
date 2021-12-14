@@ -45,7 +45,3 @@ object Day5 {
             .count()
     }
 }
-
-fun main() {
-    Day5.part1(generateSequence(::readLine))
-}

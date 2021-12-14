@@ -1,0 +1,1 @@
+expect fun readAllText(filePath: String): String

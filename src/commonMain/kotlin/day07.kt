@@ -38,6 +38,3 @@ object Day7 {
         return costs.minByOrNull { it.totalCost }?.totalCost ?: error("No position found")
     }
 }
-
-fun main() {
-}

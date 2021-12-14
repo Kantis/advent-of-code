@@ -4,7 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val targetJdk = JavaVersion.VERSION_17
 
 plugins {
-    kotlin("jvm") version "1.6.0"
+    id("io.kotest.multiplatform") version "5.0.2"
+    kotlin("multiplatform") version "1.6.0"
+//    kotlin("jvm") version "1.6.0"
 }
 
 tasks.named<Wrapper>("wrapper") {
@@ -12,12 +14,34 @@ tasks.named<Wrapper>("wrapper") {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-dependencies {
-    implementation(Ktor.client.cio)
-    implementation("org.jetbrains.bio:viktor:_")
-    testImplementation(Testing.kotest.runner.junit5)
-    testImplementation(Testing.kotest.property)
+kotlin {
+    sourceSets {
+        val commonMain by sourceSets.getting {
+            dependencies {
+                implementation(Ktor.client.cio)
+            }
+        }
+
+        val commonTest by sourceSets.getting {
+            dependencies {
+                implementation("io.kotest:kotest-framework-engine:_")
+                implementation(Testing.kotest.property)
+            }
+        }
+    }
+
+    jvm()
+    macosX64("objc") {
+        binaries {
+            executable(buildTypes = setOf(RELEASE)) {
+                debuggable = false
+                entryPoint = "day12.main"
+                runTask?.standardInput = System.`in`
+            }
+        }
+    }
 }
+
 
 allprojects {
     repositories {

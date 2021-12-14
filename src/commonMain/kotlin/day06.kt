@@ -27,7 +27,3 @@ object Day6 {
     fun part1(lines: String): Long = parseInitialState(lines).iterateAndSum(80)
     fun part2(lines: String): Long = parseInitialState(lines).iterateAndSum(256)
 }
-
-fun main() {
-    Day6.part1("")
-}
