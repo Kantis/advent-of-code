@@ -20,5 +20,75 @@ object Day14 {
         }
     }
 
-    fun part2(lines: String): Int = part1(lines, 40)
+    fun part2(lines: String): Long {
+        data class Generator(
+            val name: String,
+            val outputChar: Char,
+        )
+
+        data class DirectedEdge(
+            val origin: Generator,
+            val output: Pair<Generator, Generator>
+        )
+
+        data class State(
+            val generators: List<Generator>,
+            val edges: List<DirectedEdge>,
+            val generatorCounts: Map<Generator, Long>,
+            val charCounts: Map<Char, Long>,
+        )
+
+        val (template, transforms) = parseInput(lines)
+
+        // build transform relations:
+        val tl = transforms.toList()
+
+        val generators = tl.map { (sequence, generated) ->
+            Generator(sequence, generated.single())
+        }
+
+        val edges: List<DirectedEdge> =
+            generators.map { origin ->
+                DirectedEdge(
+                    origin,
+                    Pair(
+                        generators.single { it.name == origin.name[0] + "${origin.outputChar}" },
+                        generators.single { it.name == "${origin.outputChar}" + origin.name[1] }
+                    )
+                )
+            }
+
+        println(edges)
+
+        return (1..40).fold(
+            State(
+                generators,
+                edges,
+                generators.associateWith { gen -> template.windowed(2).count { it == gen.name }.toLong() },
+                template.groupBy { it }.mapValues { (_, v) -> v.count().toLong() }
+            )
+        ) { acc, _ ->
+            val nextGeneratorCounts = acc.generatorCounts.toMutableMap()
+            val nextCharCounts = acc.charCounts.toMutableMap()
+
+            acc.generators.forEach { gen ->
+                nextGeneratorCounts[gen] = nextGeneratorCounts[gen]!! - acc.generatorCounts[gen]!!
+
+                val targets = edges.single { it.origin == gen }.output
+                nextGeneratorCounts[targets.first] = nextGeneratorCounts[targets.first]!! + acc.generatorCounts[gen]!!
+                nextGeneratorCounts[targets.second] = nextGeneratorCounts[targets.second]!! + acc.generatorCounts[gen]!!
+
+                nextCharCounts[gen.outputChar] = (nextCharCounts[gen.outputChar] ?: 0) + acc.generatorCounts[gen]!!
+            }
+
+            State(
+                acc.generators,
+                acc.edges,
+                nextGeneratorCounts,
+                nextCharCounts
+            )
+        }.let {
+            it.charCounts.maxOf { it.value } - it.charCounts.minOf { it.value }
+        }
+    }
 }
