@@ -3,17 +3,17 @@ import io.kotest.matchers.shouldBe
 
 class Day07Test : FunSpec(
     {
-        test("sample") {
+        xtest("sample") {
             val sample = loadAsText("/day07/sample.txt")
             Day7.part1(sample) shouldBe 2
         }
 
-        test("sample2") {
+        xtest("sample2") {
             val sample = loadAsText("/day07/sample.txt")
             Day7.part2(sample) shouldBe 168
         }
 
-        test("test input") {
+        xtest("test input") {
             val sample = loadAsText("/day07/input.txt")
 //            Day7.part1(sample) shouldBe 1
             Day7.part2(sample) shouldBe 2
