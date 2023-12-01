@@ -1,6 +1,6 @@
 #!/bin/bash
 
-YEAR=2022
+YEAR=2023
 SESSION=$(< .session)
 DAY=$1
 PADDED_DAY=$(printf "%02d" $DAY)
