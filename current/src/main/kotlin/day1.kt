@@ -1,5 +1,7 @@
 package se.codeboss.aoc2023
 
+import dev.databoss.aoc.lib.findLast
+
 object Day1 {
 
     fun part1(input: String) =
@@ -22,12 +24,4 @@ object Day1 {
             1 -> value.toInt()
             else -> digits.indexOf(value) + 1
         }
-
-    fun Regex.findLast(s: String): MatchResult {
-        for (revOffset in s.length - 1 downTo 0) {
-            val result = find(s, revOffset)
-            if (result != null) return result
-        }
-        error("No match found")
-    }
 }
