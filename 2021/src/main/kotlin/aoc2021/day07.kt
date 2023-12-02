@@ -1,3 +1,5 @@
+package aoc2021
+
 import kotlin.math.abs
 
 typealias CrabBuckets = Map<Int, Int>

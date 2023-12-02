@@ -1,3 +1,5 @@
+package aoc2021
+
 object Day3 {
 
     private fun mostCommon(lines: List<String>, pos: Int) =

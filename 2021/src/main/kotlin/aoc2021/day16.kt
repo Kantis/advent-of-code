@@ -1,3 +1,5 @@
+package aoc2021
+
 sealed interface Packet {
     val version: Int
     val type: Int

@@ -1,3 +1,5 @@
+package aoc2021
+
 typealias Board = Array<Array<Slot>>
 
 data class Slot(
@@ -38,7 +40,7 @@ object Day4 {
         val split = lines.split("\n\n").toList()
         val drawOrder = split[0].split(",").map { it.toInt() }
         val boards = split.drop(1)
-            .map(::toBoard)
+            .map(Day4::toBoard)
 
         for (i in drawOrder) {
             boards.forEach { it.mark(i) }
@@ -57,7 +59,7 @@ object Day4 {
         val split = lines.split("\n\n").toList()
         val drawOrder = split[0].split(",").map { it.toInt() }
         val boards = split.drop(1)
-            .map(::toBoard)
+            .map(Day4::toBoard)
             .toMutableList()
 
         for (i in drawOrder) {

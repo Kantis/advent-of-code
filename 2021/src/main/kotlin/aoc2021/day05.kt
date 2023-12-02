@@ -1,4 +1,4 @@
-// Vent spec: 0,9 -> 5,9
+package aoc2021// Vent spec: 0,9 -> 5,9
 
 object Day5 {
     data class Point(val x: Int, val y: Int)

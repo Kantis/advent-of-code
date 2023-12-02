@@ -1,3 +1,5 @@
+package aoc2021
+
 typealias Heightmap = Array<IntArray>
 
 object Day9 {

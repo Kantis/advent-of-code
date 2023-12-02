@@ -1,3 +1,5 @@
+package aoc2021
+
 object Day14 {
     fun parseInput(lines: String): Pair<String, Map<String, String>> {
         return lines.split("\n\n").let { (template, transforms) ->

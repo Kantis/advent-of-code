@@ -1,3 +1,5 @@
+package aoc2021
+
 object day13 {
     private data class Point(val x: Int, val y: Int)
 
@@ -39,7 +41,7 @@ object day13 {
 
     fun part2(lines: String) {
         val (points, folds) = parseInput(lines)
-        val f = folds.reduce(::compose)
+        val f = folds.reduce(day13::compose)
         val folded = f(points)
 
         for (y in 0..100) {

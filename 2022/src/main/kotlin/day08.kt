@@ -21,14 +21,6 @@ object Day8 {
 
     fun List<String>.toTrees(): Grid<Tree> = map { line -> line.map(Char::toTree) }
 
-    fun part1(input: String): Int =
-        input.lines()
-            .toCharGrid()
-            .gridMap(Char::toTree)
-            .gridMapIndexed { x, y, tree ->  }
-
-
-    fun part2(input: String): Int {
-        return 2
-    }
+    fun part1(input: String): Int = 1
+    fun part2(input: String): Int = 2
 }

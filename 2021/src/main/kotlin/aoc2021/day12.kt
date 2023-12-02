@@ -1,4 +1,4 @@
-package day12
+package aoc2021
 
 import memoize
 import kotlin.jvm.JvmInline

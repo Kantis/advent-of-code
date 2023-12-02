@@ -1,3 +1,5 @@
+package aoc2021
+
 object Day2 {
     sealed interface Command {
         val amount: Int

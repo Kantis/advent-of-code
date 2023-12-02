@@ -1,3 +1,5 @@
+package aoc2021
+
 object Day1 {
 
     fun part1(lines: Sequence<String>): Int =

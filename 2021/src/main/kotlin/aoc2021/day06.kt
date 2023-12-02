@@ -1,3 +1,5 @@
+package aoc2021
+
 typealias FishBuckets = Map<Int, Long>
 
 object Day6 {

@@ -1,3 +1,5 @@
+package aoc2021
+
 private typealias Digit = Set<Char>
 
 object Day8 {

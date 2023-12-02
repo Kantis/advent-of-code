@@ -1,3 +1,5 @@
+package aoc2021
+
 object Day11 {
 
     data class Point(val x: Int, val y: Int)

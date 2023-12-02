@@ -1,3 +1,4 @@
+import aoc2021.Day10
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
