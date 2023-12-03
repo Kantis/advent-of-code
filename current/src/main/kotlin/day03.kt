@@ -30,14 +30,15 @@ object Day3 {
         return input.lines()
             .flatMapIndexed { line, l ->
                 gearRegex.findAll(l).map { gear ->
-                    val touchingParts = parts.filter { it.touches(line, gear.range.first) }
-
-                    when (touchingParts.size) {
-                        2 -> touchingParts.map { it.value }.reduce(Int::times)
-                        else -> 0
-                    }
+                    parts.filter { it.touches(line, gear.range.first) }
+                        .toGearRatio()
                 }
             }.sum()
+    }
+
+    fun List<EnginePart>.toGearRatio(): Int = when (size) {
+        2 -> get(0).value * get(1).value
+        else -> 0
     }
 
     fun parseEngineParts(input: String): List<EnginePart> = input.lines()

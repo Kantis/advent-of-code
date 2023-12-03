@@ -1,5 +1,6 @@
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import kotlin.system.measureTimeMillis
 
 class Day03Test : FunSpec(
     {
@@ -15,8 +16,10 @@ class Day03Test : FunSpec(
 
         test("test input") {
             val sample = loadAsText("/day03/input.txt")
-            Day3.part1(sample) shouldBe 533784
-            Day3.part2(sample) shouldBe 78826761
+            measureTimeMillis {
+                Day3.part1(sample) shouldBe 533784
+                Day3.part2(sample) shouldBe 78826761
+            }.also { println("Time: $it ms") }
         }
 
         test("some gear") {
